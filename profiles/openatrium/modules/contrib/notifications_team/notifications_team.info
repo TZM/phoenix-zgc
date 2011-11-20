@@ -1,0 +1,13 @@
+; $Id: notifications_team.info,v 1.1.2.2 2009/04/17 18:09:17 jmiccolis Exp $
+name = Notifications Team UI
+description = Notifications UI for subscribing other users to content.
+core = 6.x
+package = "Notifications"
+dependencies[] = notifications_content
+
+; Information added by drupal.org packaging script on 2010-05-20
+version = "6.x-2.1-beta8"
+core = "6.x"
+project = "notifications_team"
+datestamp = "1274390407"
+

@@ -1,0 +1,15 @@
+; $Id: itweak_upload.info,v 1.1.2.2 2009/07/13 06:03:40 iva2k Exp $
+name = iTweak Upload
+description = Tweak file upload form.
+dependencies[] = upload
+;dependencies[] = imagecache
+package = Site Tweaks
+core = 6.x
+
+
+; Information added by drupal.org packaging script on 2010-11-28
+version = "6.x-2.4"
+core = "6.x"
+project = "itweak_upload"
+datestamp = "1290911166"
+

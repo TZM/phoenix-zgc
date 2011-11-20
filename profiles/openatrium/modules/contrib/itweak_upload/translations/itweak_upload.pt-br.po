@@ -1,0 +1,318 @@
+# $Id: itweak_upload.pt-br.po,v 1.1.2.1 2010/01/18 09:10:04 iva2k Exp $
+#
+# Brazilian portuguese translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  itweak_upload.admin.inc,v 1.1.2.4 2009/08/08 03:33:51 iva2k
+#  itweak_upload.module,v 1.1.2.13 2009/08/08 03:33:51 iva2k
+#  itweak_upload.info,v 1.1.2.2 2009/07/13 06:03:40 iva2k
+#  itweak_upload.js,v 1.2 2009/07/04 06:02:22 iva2k
+#  itweak_upload.install,v 1.1.2.4 2009/08/08 03:33:51 iva2k
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2009-08-07 20:35-0700\n"
+"PO-Revision-Date: 2009-08-07 20:35-0700\n"
+"Last-Translator: Ummagumma <EMAIL@ADDRESS>\n"
+"Language-Team: Brazucas <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+"X-Poedit-Language: Brazilian portuguese\n"
+"X-Poedit-Country: BRASIL\n"
+
+#: itweak_upload.admin.inc:15
+msgid "No preview"
+msgstr "Sem preview"
+
+#: itweak_upload.admin.inc:16
+msgid "Full image"
+msgstr "Imagem cheia"
+
+#: itweak_upload.admin.inc:23
+msgid "Imagecache module is not installed / enabled. Previously configured attachement preview images will be disabled. Use of \"Full image\" will impact website performance."
+msgstr "O módulo imagecache não está instalado / habilitado. Previews de imagem configurados anteriormente serão desabilitados. O uso de \"Imagem cheia\" pode afetar o desempenho do servidor."
+
+#: itweak_upload.admin.inc:34
+msgid "Open image"
+msgstr "Abrir imagem"
+
+#: itweak_upload.admin.inc:36
+msgid "Lightbox"
+msgstr "Lightbox"
+
+#: itweak_upload.admin.inc:37
+msgid "Lightbox Grouped"
+msgstr "Lightbox agrupado"
+
+#: itweak_upload.admin.inc:38
+msgid "Lightbox Slideshow"
+msgstr "Lightbox Slideshow"
+
+#: itweak_upload.admin.inc:41
+msgid "Thickbox"
+msgstr "Thickbox"
+
+#: itweak_upload.admin.inc:90;155
+msgid "Attachments display"
+msgstr "Mostrar anexos"
+
+#: itweak_upload.admin.inc:93
+msgid "These global settings apply to the display of attachments in all site content by default. Each content type can override these settings."
+msgstr "Estas configurações globais aplicam-se a anexos em todo o conteúdo do site por padrão. Cada tipo de conteúdo pode sobrescrever estas configurações."
+
+#: itweak_upload.admin.inc:101;166
+msgid "Default preset for image thumbnail"
+msgstr "Configuração padrão para thumbnail de imagem"
+
+#: itweak_upload.admin.inc:104
+msgid "This preset will be used by default for image thumbnails. This setting can be overridden on each content type configuration page."
+msgstr "Esta configuração será usada por padrão para thumbnails de imagens. Cada tipo de conteúdo pode sobrescrever estas configurações em sua página de configuração."
+
+#: itweak_upload.admin.inc:106;171;207;240;281;315
+msgid "Presets can be edited on <a href=\"!link\">ImageCache</a> page."
+msgstr "Configurações podem ser editadas em <a href=\"!link\">ImageCache</a>."
+
+#: itweak_upload.admin.inc:112;177
+msgid "Default thumbnail link open mode"
+msgstr "Modo padrão de acesso ao link do thumbnail"
+
+#: itweak_upload.admin.inc:115
+msgid "This mode will be used by default for opening image thumbnails. This setting can be overridden on each content type configuration page."
+msgstr "Esse modo será usado como padrão ao abrir imagens via thumbnails. Cada tipo de conteúdo pode sobrescrever estas configurações em sua página de configuração."
+
+#: itweak_upload.admin.inc:127
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: itweak_upload.admin.inc:128
+msgid "Show files list (images included as files)"
+msgstr "Mostrar lista de arquivos (imagens incluidas como arquivos)"
+
+#: itweak_upload.admin.inc:129
+msgid "Show files list with image thumbnails"
+msgstr "Mostrar lista de arquivos com thumbnails de imagens"
+
+#: itweak_upload.admin.inc:130
+msgid "Show files list and image gallery"
+msgstr "Mostrar lista de arquivos e galerias de imagens"
+
+#: itweak_upload.admin.inc:131
+msgid "Show image gallery only"
+msgstr "Mostrar galerias de imagens apenas"
+
+#: itweak_upload.admin.inc:134;137
+msgid "(Site default)"
+msgstr "(Padrão do site)"
+
+#: itweak_upload.admin.inc:142
+msgid "Collapse state of the Attachments box in <em>!type</em>"
+msgstr "Estado de campo retrátil (colapsado) para o box de anexos em <em>!type</em>"
+
+#: itweak_upload.admin.inc:145
+msgid "Not collapsible"
+msgstr "Não retrátil"
+
+#: itweak_upload.admin.inc:146
+msgid "Collapsible"
+msgstr "Retrátil"
+
+#: itweak_upload.admin.inc:147
+msgid "Collapsed"
+msgstr "Retraído"
+
+#: itweak_upload.admin.inc:149
+msgid "Select collapsible mode for \"Attach files\" box of this type."
+msgstr "Selecione o modo de retração para o campo \"Anexar arquivos\"."
+
+#: itweak_upload.admin.inc:158
+msgid "These settings apply only to the display of all attachments in <em>!type</em> content. They do not change the settings that enable or allow attachments and comments."
+msgstr "Estas configurações se aplicam somente ao display de todos os anexos para o tipo de conteúdo <em>!type</em>. Elas não alteram as permissões para anexos e comentários."
+
+#: itweak_upload.admin.inc:169
+msgid "This preset will be used by default for image thumbnails. Individual settings can be done below."
+msgstr "Esta configuração será usada por padrão para thumbnails de imagens. Configurações individualizadas podem ser feitas abaixo."
+
+#: itweak_upload.admin.inc:180
+msgid "This mode will be used by default for opening image thumbnails. Individual settings can be done below."
+msgstr "Este modo será usado por padrão para abrir thumbnails de imagens. Configurações individualizadas podem ser feitas abaixo."
+
+#: itweak_upload.admin.inc:184;185
+msgid "(Default)"
+msgstr "(Padrão)"
+
+#: itweak_upload.admin.inc:189
+msgid "Upload form"
+msgstr "Formulário de envio"
+
+#: itweak_upload.admin.inc:192
+msgid "These settings apply to the upload attachments form in <em>!type</em> content. They do not change the settings that enable or allow attachments and comments."
+msgstr "Estas configurações se aplicam ao formulário de envio de anexos para o tipo de conteúdo <em>!type</em>. Elas não alteram as permissões para anexos e comentários."
+
+#: itweak_upload.admin.inc:196
+msgid "Preview uploaded attachments while editing  <em>!type</em>"
+msgstr "Visualizar anexos transferidos ao editar <em>!type</em>"
+
+#: itweak_upload.admin.inc:198
+msgid "Check to enable attachments preview while editing nodes of this type."
+msgstr "Selecione para habilitar o preview de anexos ao editar nódulos desse tipo."
+
+#: itweak_upload.admin.inc:202;235;276;310
+msgid "Preset for image thumbnail"
+msgstr "Configuração para thumbnail de imagem"
+
+#: itweak_upload.admin.inc:205;238;279;313
+msgid "This preset will be used for image thumbnails."
+msgstr "Esta configuração será usada para thumbnails de imagens."
+
+#: itweak_upload.admin.inc:213;246;287;321
+msgid "Thumbnail link open mode"
+msgstr "Modo de abrir link do thumbnail"
+
+#: itweak_upload.admin.inc:216;249;290;324
+msgid "This mode will be used for opening image thumbnails."
+msgstr "Este modo será usado para abrir os links dos thumbnails."
+
+#: itweak_upload.admin.inc:221
+msgid "Node view"
+msgstr "Vista do nódulo"
+
+#: itweak_upload.admin.inc:224
+msgid "These settings apply to the attachments display in <em>!type</em> content."
+msgstr "Estas configurações se aplicam aos anexos do tipo de conteúdo <em>!type</em>."
+
+#: itweak_upload.admin.inc:228
+msgid "Attachments display in <em>!type</em>"
+msgstr "Visualização de anexos em <em>!type</em>"
+
+#: itweak_upload.admin.inc:231
+msgid "Select display mode for attached files and images for nodes of this type."
+msgstr "Selecione o modo de visualização para arquvos anexados e imagens para nódulos desse tipo."
+
+#: itweak_upload.admin.inc:254
+msgid "Teaser view"
+msgstr "Vista do teaser"
+
+#: itweak_upload.admin.inc:257
+msgid "These settings apply to the attachments display in <em>!type</em> teaser."
+msgstr "Estas configurações se aplicam aos anexos do teaser de <em>!type</em>."
+
+#: itweak_upload.admin.inc:261
+msgid "Attachments display in <em>!type</em> teaser"
+msgstr "Visualização de anexos no teaser de <em>!type</em>"
+
+#: itweak_upload.admin.inc:264
+msgid "Select display mode for attached files and images in teaser for nodes of this type."
+msgstr "Selecione o modo de visualização para arquivos anexados e imagens para teasers de nódulos desse tipo."
+
+#: itweak_upload.admin.inc:268
+msgid "Number of images shown in <em>!type</em> teaser gallery"
+msgstr "Número de imagens mostradas na galeria do teaser de <em>!type</em>"
+
+#: itweak_upload.admin.inc:272
+msgid "The maximum number of images to show in the node teaser. Only applies when <em>Gallery</em> image display is selected. 0 will not show images. Leave blank to show all images."
+msgstr "O número máximo de imagens para mostrar em um teaser de nódulo. Aplica-se apenas quando o modo de visualização <em>Gallery</em> é selecionado. 0 não mostra imagem alguma. Deixe em branco para mostrar todas as imagens."
+
+#: itweak_upload.admin.inc:296
+msgid "Comments"
+msgstr "Comentários"
+
+#: itweak_upload.admin.inc:299
+msgid "These settings apply to the attachments display in <em>!type</em> comments."
+msgstr "Estas configurações se aplicam aos anexos dos comentários de <em>!type</em>."
+
+#: itweak_upload.admin.inc:303
+msgid "Attachments display in <em>!type</em> comments"
+msgstr "Visualização de anexos nos comentários de <em>!type</em>"
+
+#: itweak_upload.admin.inc:306
+msgid "Select display mode for attached files and images in comments for nodes of this type."
+msgstr "Selecione o modo de visualização para arquivos anexados e imagens para comentários de nódulos desse tipo."
+
+#: itweak_upload.module:49 itweak_upload.info:0
+msgid "iTweak Upload"
+msgstr "iTweak Upload"
+
+#: itweak_upload.module:50
+msgid "Manage site-wide settings for file upload forms and attachment display (iTweak Upload)."
+msgstr "Gerencia as configurações globais para formulários de transferência de arquivos e visualização de anexos."
+
+#: itweak_upload.module:145
+msgid "comment"
+msgstr "comentário"
+
+#: itweak_upload.module:151
+msgid "Attach files to this @type"
+msgstr "Anexar arquivos a @type"
+
+#: itweak_upload.module:154
+msgid "Images are larger than %resolution will be resized. "
+msgstr "Imagens maiores que %resolution serão redimensionadas."
+
+#: itweak_upload.module:154
+msgid "Files must be smaller than %filesize and have one of the following extensions: %extensions."
+msgstr "Arquivos devem ser menors que %filesize e devem ter uma das seguintes extensões: %extensions."
+
+#: itweak_upload.module:454 itweak_upload.js:0
+msgid "Remove"
+msgstr "Remover"
+
+#: itweak_upload.module:460
+msgid "List"
+msgstr "Listar"
+
+#: itweak_upload.module:485
+msgid "Preview"
+msgstr "Preview"
+
+#: itweak_upload.module:485
+msgid "Attachment"
+msgstr "Anexar"
+
+#: itweak_upload.module:485
+msgid "Size"
+msgstr "Tamanho"
+
+#: itweak_upload.install:30
+msgid "Tried installing ImageCache preset for iTweak Upload module, but ImageCache module is not present. ImageCache presets for iTweak Upload module were not installed."
+msgstr "Tentativa de instalar preset de ImageCache para o módulo iTweak Upload, mas o módulo ImageCache não está presente. Presets de ImageCache para iTweak Upload não foram instalados."
+
+#: itweak_upload.install:60
+msgid "ImageCache preset \"%name\" already exists, id=%id. Leaving unchanged. Will use it by default in \"iTweak Upload\". Please check the preset and its permissions!"
+msgstr "Preset de ImageCache \"%name\" já existe, id=%id. Alterações não realizadas. Preset será usado como padrão em \"iTweak Upload\". Cheque o preset e suas permissões!"
+
+#: itweak_upload.install:66
+msgid "Created ImageCache preset \"%name\", id=%id."
+msgstr "Criado preset de ImageCache \"%name\", id=%id."
+
+#: itweak_upload.install:88
+msgid "Added permissions \"%perms\" to role %role."
+msgstr "Adicionadas permissões \"%perms\" para o papel %role."
+
+#: (duplicate) itweak_upload.install:134 
+msgid " ImageCache module to be pre-installed."
+msgstr "Módulo ImageCache deve estar pré-instalado."
+
+#: (duplicate) itweak_upload.install:137 
+msgid "ImageCache module to be pre-installed."
+msgstr "Módulo ImageCache deve estar pré-instalado."
+
+#: itweak_upload.info:0
+msgid "Tweak file upload form."
+msgstr "Formulário de transferência de arquivo Tweak."
+
+#: itweak_upload.info:0
+msgid "Site Tweaks"
+msgstr "Tweaks do site"
+
+#: itweak_upload.js:0;0
+msgid "Rename"
+msgstr "Renomear"
+
+#: itweak_upload.js:0
+msgid "Cancel"
+msgstr "Cancelar"
+

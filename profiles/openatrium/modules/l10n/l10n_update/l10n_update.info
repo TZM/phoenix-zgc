@@ -1,0 +1,12 @@
+; $Id$
+name = Locale updater
+description = Provides automatic downloads and updates for translations
+dependencies[] = locale
+core = 6.x
+package = Multilanguage
+; Information added by fserver
+core = "6.x"
+datestamp = "1263337433"
+project = "l10n_update"
+project status url = "http://featureserver.phase2technology.com/fserver"
+version = "6.x-1.0-alpha1"
