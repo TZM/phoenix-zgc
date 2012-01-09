@@ -64,4 +64,6 @@ Access to the atrium admin site
     password:~I~|h(71927P_N?
 
 
-
+Help
+----
+https://community.openatrium.com/documentation-en/node/590
