@@ -1,8 +1,8 @@
 <?php
-// $Id: views_handler_field_term_node_tid.inc,v 1.4 2009/07/01 23:07:14 merlinofchaos Exp $
 
 /**
- * Field handler for terms.
+ * @file
+ * Field handler to display all taxonomy terms of a node.
  */
 class views_handler_field_term_node_tid extends views_handler_field_prerender_list {
   function init(&$view, $options) {
@@ -20,9 +20,7 @@ class views_handler_field_term_node_tid extends views_handler_field_prerender_li
 
     $options['link_to_taxonomy'] = array('default' => TRUE);
     $options['limit'] = array('default' => FALSE);
-    $options['limit_module'] = array('default' => 'vid');
     $options['vids'] = array('default' => array());
-    $options['modules'] = array('default' => array());
 
     return $options;
   }
@@ -40,16 +38,14 @@ class views_handler_field_term_node_tid extends views_handler_field_prerender_li
 
     $form['limit'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Limit terms by vocabulary vid'),
+      '#title' => t('Limit terms by vocabulary'),
       '#default_value'=> $this->options['limit'],
     );
 
-    $options_vid = array();
-    $options_module = array();
+    $options = array();
     $vocabularies = taxonomy_get_vocabularies();
     foreach ($vocabularies as $voc) {
-      $options_vid[$voc->vid] = check_plain($voc->name);
-      $options_module[$voc->module] = check_plain($voc->name);
+      $options[$voc->vid] = check_plain($voc->name);
     }
 
     $form['vids'] = array(
@@ -57,29 +53,11 @@ class views_handler_field_term_node_tid extends views_handler_field_prerender_li
       '#suffix' => '</div></div>',
       '#type' => 'checkboxes',
       '#title' => t('Vocabularies'),
-      '#options' => $options_vid,
+      '#options' => $options,
       '#default_value' => $this->options['vids'],
       '#process' => array('expand_checkboxes', 'views_process_dependency'),
       '#dependency' => array('edit-options-limit' => array(TRUE)),
     );
-
-    $form['limit_module'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Limit terms by vocabulary module'),
-      '#default_value'=> $this->options['limit_module'],
-    );
-
-    $form['modules'] = array(
-      '#prefix' => '<div><div id="edit-options-modules">',
-      '#suffix' => '</div></div>',
-      '#type' => 'checkboxes',
-      '#title' => t('Vocabularies'),
-      '#options' => $options_module,
-      '#default_value' => $this->options['modules'],
-      '#process' => array('expand_checkboxes', 'views_process_dependency'),
-      '#dependency' => array('edit-options-limit-module' => array(TRUE)),
-    );
-
   }
 
   /**
@@ -100,11 +78,9 @@ class views_handler_field_term_node_tid extends views_handler_field_prerender_li
 
     if ($vids) {
       $voc = '';
-      if (!empty($this->options['limit_module']) && !empty($this->options['modules'])) {
-        $voc = " AND v.module IN (\"" . implode('", "', array_keys(array_filter($this->options['modules']))) . "\")";
-      }
-      if (!empty($this->options['limit']) && !empty($this->options['vids'])) {
-        $voc = " AND td.vid IN (" . implode(', ', array_keys(array_filter($this->options['vids']))) . ")";
+      $voc_ids = array_filter($this->options['vids']);
+      if (!empty($this->options['limit']) && !empty($voc_ids)) {
+        $voc = " AND td.vid IN (" . implode(', ', array_keys($voc_ids)) . ")";
       }
 
       $result = db_query("SELECT tn.vid AS node_vid, td.*, v.name as vocabulary FROM {term_data} td INNER JOIN {term_node} tn ON td.tid = tn.tid INNER JOIN {vocabulary} v ON v.vid = td.vid WHERE tn.vid IN (" . implode(', ', $vids) . ")$voc ORDER BY td.weight, td.name");
@@ -114,7 +90,7 @@ class views_handler_field_term_node_tid extends views_handler_field_prerender_li
         $this->items[$term->node_vid][$term->tid]['tid'] = $term->tid;
         $this->items[$term->node_vid][$term->tid]['vid'] = $term->vid;
         $this->items[$term->node_vid][$term->tid]['vocabulary'] = check_plain($term->vocabulary);
-        
+
         if (!empty($this->options['link_to_taxonomy'])) {
           $this->items[$term->node_vid][$term->tid]['make_link'] = TRUE;
           $this->items[$term->node_vid][$term->tid]['path'] = taxonomy_term_path($term);
@@ -135,10 +111,8 @@ class views_handler_field_term_node_tid extends views_handler_field_prerender_li
   }
 
   function add_self_tokens(&$tokens, $item) {
-    $tokens['[' . $this->options['id'] . '-tid' . ']'] = $item['tid'];
-    $tokens['[' . $this->options['id'] . '-name' . ']'] = $item['name'];
-    $tokens['[' . $this->options['id'] . '-vid' . ']'] = $item['vid'];
-    $tokens['[' . $this->options['id'] . '-vocabulary' . ']'] = $item['vocabulary'];
+    foreach (array('tid', 'name', 'vid', 'vocabulary') as $token) {
+      $tokens['[' . $this->options['id'] . '-' . $token . ']'] = isset($item[$token]) ? $item[$token] : '';
+    }
   }
 }
-

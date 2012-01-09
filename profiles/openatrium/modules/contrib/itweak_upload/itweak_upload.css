@@ -1,8 +1,29 @@
-/* $Id: itweak_upload.css,v 1.2.2.9 2010/10/06 15:10:12 iva2k Exp $ */
 
 /**
  * @file
  * itweak_upload CSS file.
+ *
+ * Colors:
+ * #DDD    - hover file item bg, list borders, image border
+ * #000    - hover image border
+ * #777    - file details font
+ * #F0F0F0 - Inline file item
+ * #AAAAAA - Inline file item border
+ * #C8C8C8 - Inline file item shadow
+ * red     - hover remove link font
+ * green   - hover insert link font
+ *
+ * !important is used in some styles to forward-override defaults in themes
+ *   3 times - width 
+ *   5 times - padding
+ *   5 times - margin
+ *  19 times - background mime 32x32
+ *  19 times - background mime 16x16
+ *   3 times - background 
+ *   4 times - border
+ *   3 times - text-decoration
+ *  total: 61 times
+ * use !important in your theme customizations (local.css or similar) to re-theme.
  */
 
 #upload-attachments {
@@ -43,19 +64,159 @@
   margin-left: 1em;
 }
 
+#attach-wrapper .file a:hover {
+  background-color: #DDD;
+}
+
 #attach-wrapper .file a.itu-remove:hover {
   color: red;
 }
 
+#attach-wrapper .itu-insert .details,
+#attach-wrapper .list .details, /* align vertical pos. of insert and list cells */
 #attach-wrapper .file .details {
   color: #777;
   display: block;
   font-size: 85%;
 }
+#attach-wrapper .file input {
+  margin-top: -2px; /* compensate for vertical shift - aligns v.pos. of rename/cancel/remove links */
+}
 
 #attach-wrapper .file {
   width: 100%;
   padding-left: 1em;
+}
+
+/* Insert link & selector */
+#attach-wrapper td.itu-insert a {
+  cursor: pointer;
+  font-size: 85%;
+  margin-right: 0.5em;
+}
+#attach-wrapper td.itu-insert a:hover {
+  background-color: #DDD;
+}
+#attach-wrapper td.itu-insert a.itu-insert:hover {
+  color: green;
+}
+
+#attach-wrapper td.itu-insert select {
+  font-size: 85%;
+}
+
+/* Insert File CSS Sprites */
+a.itu-insert-file {
+  background: #F0F0F0 url('images/mime-16.png') no-repeat 4px 0;
+  border: 1px solid #AAAAAA;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: -2px 2px 2px 0 #C8C8C8;
+  -moz-box-shadow: -2px 2px 2px 0 #C8C8C8;
+  box-shadow: -2px 2px 2px 0 #C8C8C8;
+  display: inline-block;
+  padding: 2px 6px 2px 24px !important;
+  margin: 0 3px !important;
+  min-width: 80px;
+  height: 18px;
+  min-height: 18px;
+  width: auto;
+  font-weight: bold;
+  text-decoration: none !important;
+}
+
+a.itu-insert-file:hover,
+a.itu-insert-file:active {
+  background-color: #DDD;
+  text-decoration: none !important;
+}
+
+/* Mime types */
+.itu-insert-file.mime-ai {
+  background-position: 4px -32px !important;
+}
+
+.itu-insert-file.mime-odt,
+.itu-insert-file.mime-doc,
+.itu-insert-file.mime-docx {
+  background-position: 4px -64px !important;
+}
+
+.itu-insert-file.mime-eps {
+  background-position: 4px -96px !important;
+}
+
+.itu-insert-file.mime-gif {
+  background-position: 4px -192px !important;
+}
+
+.itu-insert-file.mime-gz {
+  background-position: 4px -128px !important;
+}
+
+.itu-insert-file.mime-id,
+.itu-insert-file.mime-indd {
+  background-position: 4px -160px !important;
+}
+
+.itu-insert-file.mime-jpg,
+.itu-insert-file.mime-jpeg {
+  background-position: 4px -192px !important;
+}
+
+.itu-insert-file.mime-pdf {
+  background-position: 4px -224px !important;
+}
+
+.itu-insert-file.mime-png {
+  background-position: 4px -256px !important;
+}
+
+.itu-insert-file.mime-odp,
+.itu-insert-file.mime-pps,
+.itu-insert-file.mime-ppt,
+.itu-insert-file.mime-pptx {
+  background-position: 4px -288px !important;
+}
+
+.itu-insert-file.mime-ps {
+  background-position: 4px -320px !important;
+}
+
+.itu-insert-file.mime-psd {
+  background-position: 4px -352px !important;
+}
+
+.itu-insert-file.mime-mp4,
+.itu-insert-file.mime-avi,
+.itu-insert-file.mime-mov {
+  background-position: 4px -384px !important;
+}
+
+.itu-insert-file.mime-rar {
+  background-position: 4px -416px !important;
+}
+
+.itu-insert-file.mime-svg {
+  background-position: 4px -448px !important;
+}
+
+.itu-insert-file.mime-swf {
+  background-position: 4px -480px !important;
+}
+
+.itu-insert-file.mime-tar  {
+  background-position: 4px -512px !important;
+}
+
+.itu-insert-file.mime-ods,
+.itu-insert-file.mime-xls,
+.itu-insert-file.mime-xlsx {
+  background-position: 4px -544px !important;
+}
+
+.itu-insert-file.mime-zip {
+  background-position: 4px -576px !important;
 }
 
 /* CSS Sprites */
@@ -74,7 +235,8 @@
 }
 
 #attach-wrapper .mime-odt .mime,
-#attach-wrapper .mime-doc .mime {
+#attach-wrapper .mime-doc .mime,
+#attach-wrapper .mime-docx .mime {
   background-position: center -128px;
 }
 
@@ -90,7 +252,8 @@
   background-position: center -256px;
 }
 
-#attach-wrapper .mime-id .mime {
+#attach-wrapper .mime-id .mime,
+#attach-wrapper .mime-indd .mime {
   background-position: center -320px;
 }
 
@@ -107,6 +270,9 @@
   background-position: center -512px;
 }
 
+#attach-wrapper .mime-odp .mime,
+#attach-wrapper .mime-pps .mime,
+#attach-wrapper .mime-ppt .mime,
 #attach-wrapper .mime-pptx .mime {
   background-position: center -576px;
 }
@@ -141,6 +307,7 @@
   background-position: center -1024px;
 }
 
+#attach-wrapper .mime-ods .mime,
 #attach-wrapper .mime-xls .mime,
 #attach-wrapper .mime-xlsx .mime {
   background-position: center -1088px;
@@ -171,7 +338,7 @@ table.itu-attachment-list {
   border: none;
   /* The following is required to apply borders to tbody */
   border-collapse: collapse !important;
-  *width: 100% !important;  /* IE6, IE7 only */
+  width: 100% !important;
   *border: 1px solid #DDD !important; /* IE6, IE7 fix of no border on tbody */
 }
 table.itu-attachment-list.withoutstats thead {
@@ -259,7 +426,8 @@ table.itu-attachment-list .mime {
 }
 
 .itu-attachment-list .mime-odt,
-.itu-attachment-list .mime-doc {
+.itu-attachment-list .mime-doc,
+.itu-attachment-list .mime-docx {
   background-position: center -64px !important;
 }
 
@@ -275,7 +443,8 @@ table.itu-attachment-list .mime {
   background-position: center -128px !important;
 }
 
-.itu-attachment-list .mime-id {
+.itu-attachment-list .mime-id,
+.itu-attachment-list .mime-indd {
   background-position: center -160px !important;
 }
 
@@ -292,6 +461,9 @@ table.itu-attachment-list .mime {
   background-position: center -256px !important;
 }
 
+.itu-attachment-list .mime-odp,
+.itu-attachment-list .mime-pps,
+.itu-attachment-list .mime-ppt,
 .itu-attachment-list .mime-pptx {
   background-position: center -288px !important;
 }
@@ -326,6 +498,7 @@ table.itu-attachment-list .mime {
   background-position: center -512px !important;
 }
 
+.itu-attachment-list .mime-ods,
 .itu-attachment-list .mime-xls,
 .itu-attachment-list .mime-xlsx {
   background-position: center -544px !important;
@@ -336,6 +509,7 @@ table.itu-attachment-list .mime {
 }
 
 /* Styles for Image Attachments slider */
+/* div.itu-attachment-images > div.item-list > ul.itu-attachment-thumbs > li.first/last > div.itu_attachment-thumb > a > img */
 .itu-attachment-images * {
   margin: 0;
   padding: 0;
@@ -421,3 +595,47 @@ table.itu-attachment-list .mime {
   width: 100% !important;
   margin: 0 !important;
 }
+
+/* jCarousel Lite Prev/Next buttons */
+.jcarousellite {
+  position: relative;
+  padding-left: 33px;
+  padding-right: 33px;
+}
+.jcarousellite .item-list {
+  display: block;
+}
+.itu-attachment-jcarousellite-prev,
+.itu-attachment-jcarousellite-next {
+  display: block;
+  position: absolute;
+  top: 0px;
+  width: 31px;
+  height: 100%;
+  text-decoration: none !important;
+}
+.itu-attachment-jcarousellite-prev {
+  background: url(images/imageNavLeft.gif) no-repeat 2px 50%;
+  left: 0;
+}
+.itu-attachment-jcarousellite-next {
+  background: url(images/imageNavRight.gif) no-repeat 2px 50%;
+  right: 0;
+}
+.itu-attachment-jcarousellite-prev:hover {
+  background-position: -52px 50%;
+  background-color: #DDD;
+}
+.itu-attachment-jcarousellite-next:hover {
+  background-position: -52px 50%;
+  background-color: #DDD;
+}
+.itu-attachment-jcarousellite-prev:active {
+  background-position: -106px 50%;
+}
+.itu-attachment-jcarousellite-next:active {
+  background-position: -106px 50%;
+}
+/* Fixing jCarousel Lite spacing. */
+.jcarousellite ul div { margin: 0 4px 0 0; }
+

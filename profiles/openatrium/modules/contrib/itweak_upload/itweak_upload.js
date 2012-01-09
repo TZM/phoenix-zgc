@@ -1,4 +1,3 @@
-/* $Id: itweak_upload.js,v 1.2.2.6 2010/10/25 03:39:40 iva2k Exp $ */
 
 Drupal.behaviors.attachment = function (context) {
   $('#attach-wrapper input[type=submit]').hide();
@@ -47,6 +46,8 @@ Drupal.behaviors.attachment = function (context) {
       if (!has_content) $('#upload-attachments').hide();
     });
   });
+  if (Drupal.behaviors.attachment.itu_insert)
+    Drupal.behaviors.attachment.itu_insert(context);
 };
 
 Drupal.itweak_upload = {

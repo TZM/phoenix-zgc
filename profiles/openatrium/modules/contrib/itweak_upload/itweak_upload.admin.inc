@@ -1,5 +1,4 @@
 <?php
-// $Id: itweak_upload.admin.inc,v 1.1.2.12 2010/03/26 18:24:58 iva2k Exp $
 
 /**
  * @file
@@ -37,6 +36,9 @@ function _itweak_upload_setting_link_options($default_text = NULL) {
     $ret['lightbox2grouped'] = t('Lightbox Grouped');
     $ret['lightbox2slideshow'] = t('Lightbox Slideshow');
   }
+  if (module_exists('colorbox')) {
+    $ret['colorbox'] = t('Colorbox');
+  }
   if (module_exists('thickbox')) {
     $ret['thickbox'] = t('Thickbox');
   }
@@ -54,6 +56,35 @@ function _itweak_upload_setting_link_options($default_text = NULL) {
   return $ret;
 }
 
+/*
+ * Collect list of available handlers for gallery type options.
+ */
+function _itweak_upload_gallery_type_options($default_text = NULL) {
+  $ret = array();
+  if ($default_text) $ret['_default'] = $default_text;
+  $ret['none'] = t('iTweak Upload');
+  if (module_exists('jcarousel')) {
+    $ret['jcarousel'] = t('jCarousel');
+  }
+  if (module_exists('jcarousellite')) {
+    $ret['jcarousellite'] = t('jCarousel Lite');
+  }
+  return $ret;
+}
+
+/* jCarousel Lite additional options
+          '#description' => t("Additional options. See !link for more detail.<br /><code>
+btnGo: ['.externalControl .1', '.externalControl .2', '.externalControl .3'],<br />
+auto: null,<br />
+speed: 200,<br />
+vertical: false,<br />
+circular: true,<br />
+visible: 3,<br />
+start: 0,<br />
+scroll: 1,
+</code>", array('!link' => l('documentation', 'http://www.gmarwaha.com/jquery/jcarousellite/index.php', array('target' => '_blank', 'fragment' => 'doc')))),
+*/
+
 /**
  * Pre-render callback to adjust weights of fields.
  */
@@ -61,12 +92,12 @@ function _itweak_upload_node_type_alter_weights($elements) {
   if (isset($elements['workflow']) && isset($elements['workflow']['#weight'])
     && isset($elements['itweak_upload_display'])) {
     $elements['itweak_upload_display']['#weight'] = $elements['workflow']['#weight'] + 0.001;
-	unset($elements['#sorted']);
+    unset($elements['#sorted']);
   }
   if (isset($elements['workflow']) && isset($elements['workflow']['upload']) && isset($elements['workflow']['upload']['#weight'])
     && isset($elements['workflow']['itweak_upload_collapse'])) {
     $elements['workflow']['itweak_upload_collapse']['#weight'] = $elements['workflow']['upload']['#weight'] + 0.001;
-	unset($elements['#sorted']);
+    unset($elements['#sorted']);
     unset($elements['workflow']['#sorted']);
   }
   // Hide "Image attachments on comments" setting - it is ignored anyway.
@@ -80,8 +111,8 @@ function _itweak_upload_node_type_alter_weights($elements) {
 function _itweak_upload_admin_settings_alter_weights($elements) {
   if (isset($elements['settings_general']) && isset($elements['settings_general']['#weight']) 
     && isset($elements['itweak_upload'])) {
-	$elements['itweak_upload']['#weight'] = $elements['settings_general']['#weight'] + 0.001;
-	unset($elements['#sorted']);
+    $elements['itweak_upload']['#weight'] = $elements['settings_general']['#weight'] + 0.001;
+    unset($elements['#sorted']);
   }
   return $elements;
 }
@@ -105,7 +136,8 @@ function _itweak_upload_admin_settings(&$form) {
   $link_options = _itweak_upload_setting_link_options();
   $image_options = _itweak_upload_setting_image_options();
   $image_option_default = _itweak_upload_encode_derivative();
-
+  $gallery_type_options = _itweak_upload_gallery_type_options();
+  
   $form['itweak_upload'] = array(
     '#type' => 'fieldset',
     '#title' => t('Attachments display'),
@@ -154,6 +186,85 @@ function _itweak_upload_admin_settings(&$form) {
     '#default_value' => variable_get('itweak_upload_thumbnail_title_default', 1),
     '#description' => t('Check to show by default the file name on the image opened from thumbnails (only if selected link open mode supports it).')
   );
+  
+  $form['itweak_upload']['itweak_upload_gallery_type_default'] = array(
+    '#type' => 'select',
+    '#title' => t('Default image gallery type'),
+    '#default_value' => variable_get('itweak_upload_gallery_type_default', _itweak_upload_gallery_type_default()),
+    '#options' => $gallery_type_options,
+    '#description' => t('This gallery type will be used by default for image thumbnails. This setting can be overridden on each content type configuration page.'),
+  );
+  _itweak_upload_insert_form($form['itweak_upload'], 'default');
+}
+
+/*
+ *  Insert options form builder
+ */
+function _itweak_upload_insert_form(&$form, $node_type) {
+  if (ITU_USE_INSERT_MODULE && module_exists('insert')) {
+    $widget = _itweak_upload_get_insert_widget_settings($node_type);
+    $insert = insert_widget_form($widget);
+    $suffix = ($node_type == 'default') ? '_default' : '';  // Node type form adds type automatically
+    $first = TRUE;
+    foreach ($insert['insert'] as $name => $field) {
+      if (substr($name, 0,1) == '#')
+        $form['insert'][$name] = $field;  // Copy the fieldset
+      else {
+        if ($node_type != 'default' && $first) {
+          $first = FALSE;
+          $form['#pre_render'][] = '_itweak_upload_insert_js';
+          $form['insert']['itweak_upload_insert_override_default'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('Use custom insert settings for %node_type content', array('%node_type' => $node_type)),
+            '#default_value' => variable_get('itweak_upload_insert_override_default_' . $node_type, 0),
+            '#description' => t('Check to override site-wide settings (enables the below configuration).')
+          );
+        }
+        if ($name == 'insert') {
+          $name = 'insert_enable';  // This avoids naming hole in _itweak_upload_get_setting()
+        }
+		
+if (0) { // Experimental: Preview formats
+        if ($name == 'insert_styles') {
+//FIXME: the preview file can work only from default/files/ directory... Copy four ile to it?
+$fpath = ''; // '/' . drupal_get_path('module', 'itweak_upload') . '/images/';
+$fname = 'example.jpg';
+      $item = array(
+        'filepath' => $fpath . $fname,
+        'filename' => $fname,
+      ); // Build a pretend item - we need only filepath
+    $widget = _itweak_upload_get_insert_widget_settings('default');
+
+          foreach ($field['#options'] as $style_name => $description) {
+            $style = insert_style_load($style_name);
+$value = insert_content($item, $style, $widget);
+//FIXME: move to a theme function:
+            $field['#options'][$style_name] = $description . ' <span>(format: ' . $value . ')</span>';
+          }
+//watchdog('debug','in itu_upload_insert_form, widget='.iprintr($widget).' insert_styles='.iprintr($field));
+        }
+}  // END Experimental
+
+        $form['insert']['itweak_upload_' . $name . $suffix] = $field;
+      }
+    }
+    unset($form['insert']['#weight']);
+
+    if (isset($form['insert']['itweak_upload_insert_class_' . $node_type])) {
+      $form['insert']['itweak_upload_insert_class_' . $node_type]['#description'] .= 
+        ' ' . t('Pre-defined class %cl is provided with button-like CSS styling.', array('%cl' => 'itu-insert-file'));
+    }
+
+//FIXME: implement formatters here (a fieldset, collapsed, which shows a table of code as formatters will provide)
+  }
+}
+
+/**
+ * Prerender callback - just to load javascript on demand (works on cached forms).
+ */
+function _itweak_upload_insert_js($form) {
+  drupal_add_js(drupal_get_path('module', 'itweak_upload') . '/itweak_upload.insert.js');
+  return $form;
 }
 
 /**
@@ -175,6 +286,7 @@ function _itweak_upload_node_type_form(&$form) {
   $image_option_default = '_default';
 
   $link_options = _itweak_upload_setting_link_options(t('(Site default)'));
+  $gallery_type_options = _itweak_upload_gallery_type_options(t('(Site default)'));
     
   if (isset($form['workflow'])) {
     $form['workflow']['itweak_upload_collapse'] = array(
@@ -219,10 +331,18 @@ function _itweak_upload_node_type_form(&$form) {
     '#options' => $link_options,
     '#description' => t('This mode will be used by default for opening image thumbnails. Individual settings can be done below.'),
   );
+  $form['itweak_upload_display']['itweak_upload_gallery_type_default'] = array(
+    '#type' => 'select',
+    '#title' => t('Default image gallery type'),
+    '#default_value' => variable_get('itweak_upload_gallery_type_default_' . $node_type, '_default'),
+    '#options' => $gallery_type_options,
+    '#description' => t('This gallery type will be used by default for image thumbnails. Individual settings can be done below.'),
+  );
 
   // Change default wordings for the rest of the form
   $image_options['_default'] = t('(Default)');
   $link_options['_default'] = t('(Default)');
+  $gallery_type_options['_default'] = t('(Default)');
 
   $form['itweak_upload_display']['upload'] = array(
     '#type' => 'fieldset',
@@ -255,6 +375,7 @@ function _itweak_upload_node_type_form(&$form) {
     '#options' => $link_options,
     '#description' => t('This mode will be used for opening image thumbnails.'),
   );
+  _itweak_upload_insert_form($form['itweak_upload_display'], $node_type);
 
   $form['itweak_upload_display']['node'] = array(
     '#type' => 'fieldset',
@@ -287,6 +408,13 @@ function _itweak_upload_node_type_form(&$form) {
     '#default_value' => variable_get('itweak_upload_thumbnail_link_node_' . $node_type, '_default'),
     '#options' => $link_options,
     '#description' => t('This mode will be used for opening image thumbnails.'),
+  );
+  $form['itweak_upload_display']['node']['itweak_upload_gallery_type_node'] = array(
+    '#type' => 'select',
+    '#title' => t('Image gallery type'),
+    '#default_value' => variable_get('itweak_upload_gallery_type_node_' . $node_type, '_default'),
+    '#options' => $gallery_type_options,
+    '#description' => t('This gallery type will be used for image thumbnails.'),
   );
 
   $form['itweak_upload_display']['teaser'] = array(
@@ -329,6 +457,13 @@ function _itweak_upload_node_type_form(&$form) {
     '#options' => $link_options,
     '#description' => t('This mode will be used for opening image thumbnails.'),
   );
+  $form['itweak_upload_display']['teaser']['itweak_upload_gallery_type_teaser'] = array(
+    '#type' => 'select',
+    '#title' => t('Image gallery type'),
+    '#default_value' => variable_get('itweak_upload_gallery_type_teaser_' . $node_type, '_default'),
+    '#options' => $gallery_type_options,
+    '#description' => t('This gallery type will be used for image thumbnails.'),
+  );
 
   if (module_exists('comment_upload')) {
     $form['itweak_upload_display']['comment'] = array(
@@ -340,7 +475,7 @@ function _itweak_upload_node_type_form(&$form) {
     );
     if (module_exists('nodecomment')) {
       $form['itweak_upload_display']['comment']['#description'] .= '<br>'
-	   . t('(Applicable only to normal Drupal comments - provided by core comment module. If Nodecomment module is selected for comments, attachments should be configured in the corresponding content type.)');
+       . t('(Applicable only to normal Drupal comments - provided by core comment module. If Nodecomment module is selected for comments, attachments should be configured in the corresponding content type.)');
     }
     $form['itweak_upload_display']['comment']['itweak_upload_comment_display'] = array(
       '#type' => 'radios',
@@ -366,6 +501,13 @@ function _itweak_upload_node_type_form(&$form) {
       '#default_value' => variable_get('itweak_upload_thumbnail_link_comment_' . $node_type, '_default'),
       '#options' => $link_options,
       '#description' => t('This mode will be used for opening image thumbnails.'),
+    );
+    $form['itweak_upload_display']['comment']['itweak_upload_gallery_type_comment'] = array(
+      '#type' => 'select',
+      '#title' => t('Image gallery type'),
+      '#default_value' => variable_get('itweak_upload_gallery_type_comment_' . $node_type, '_default'),
+      '#options' => $gallery_type_options,
+      '#description' => t('This gallery type will be used for image thumbnails.'),
     );
   }
 }

@@ -1,9 +1,23 @@
-# $Id: CHANGELOG.txt,v 1.1.2.47 2010/11/28 02:18:44 iva2k Exp $
-
 
 
 itweak_upload 6.x-2.x-dev
 -------------------------
+
+
+itweak_upload 6.x-2.5, 2011-08-28
+---------------------------------
+[#981628] by iva2k: Flexible configuration of gallery type (site-wide, node default, each view), iTweak Upload / jCarousel
+[#977256] by iva2k: Wrong mime type listed in CSS for Adobe InDesign Files
+[#956324] by Todd Nienkerk: Support more file types/extensions (ppt, odp, docx, etc.)
+[#544058] by iva2k: Support for jCarousel Lite
+[#673118] by iva2k: Support for insert.module (soft dependency)
+[#985650] by iva2k: Refactored code for possibility of adjusting link options (No new features)
+[NOISSUE] by iva2k: Touched up some CSS styling
+[#985650] by iva2k: Lightbox link to original for images
+[#673118] by iva2k: Fixed insert function JS errors
+[#1031904] by iva2k: Added comment to itweak_upload.css for use of "!important"
+[#1069974] by Mark Carver: Provide out-of-the box AJAX support for sites that use SSL (SecurePages), http://drupal.org/node/297035#comment-4111664
+[#1071746] by eoipso: Colorbox integration
 
 
 itweak_upload 6.x-2.4, 2010-11-27
@@ -23,7 +37,7 @@ itweak_upload 6.x-2.4, 2010-11-27
 [#594114] by niteman, iva2k: Fixed private_upload file path
 [NOISSUE] by iva2k: Added a note for content type form Attachments/comments section when Nodecomment module is present
 [NOISSUE] by iva2k: Fixed regression of removing 'comment_upload_images' on content type form
-[NOISSUE] by iva2k: Fixed placement wueight of 'itweak_upload_collapse' on content type form
+[NOISSUE] by iva2k: Fixed placement weight of 'itweak_upload_collapse' on content type form
 [NOISSUE] by iva2k: Removed preview for missing files
 [#737044] by iva2k: Prevent creating NULL children in form
 [#706888] by iva2k: Redoing invocation of hook_file_download for compatibility with webform and other picky modules

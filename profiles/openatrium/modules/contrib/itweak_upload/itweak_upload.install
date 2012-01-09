@@ -1,5 +1,4 @@
 <?php
-// $Id: itweak_upload.install,v 1.1.2.10 2010/10/06 05:43:54 iva2k Exp $
 
 /**
  * @file
@@ -57,10 +56,10 @@ function _itweak_upload_install_imagecache_presets() {
       $perms = implode(', ', $perms);
       foreach ($roles as $rid => $role) {
         $res = _itweak_upload_add_permission($rid, $perms);
-	if ($res['success']) {
-	  $res['query'] = t('Added permissions "%perms" to role %role.', array('%perms' => $perms, '%role' => $role) );
-	}
-	$ret[] = $res;
+        if ($res['success']) {
+          $res['query'] = t('Added permissions "%perms" to role %role.', array('%perms' => $perms, '%role' => $role) );
+        }
+        $ret[] = $res;
       }
     }
   }
@@ -122,7 +121,7 @@ function itweak_upload_requirements($phase) {
 //        $value = $t('Content Copy module to be pre-installed.');
 //        $severity = REQUIREMENT_ERROR;
 //      }
-      
+
       if (!module_exists('imagecache')) {
         if ($error) {
           $value .= ' ';
@@ -133,7 +132,7 @@ function itweak_upload_requirements($phase) {
         $value .= $t('ImageCache module to be pre-installed.');
         $severity = REQUIREMENT_ERROR;
       }
-      
+
 //      if ($error) {
 //        $requirements['cck_gallery'] = array(
 //          'title' => $t('CCK Gallery requirements'),

@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.1.2.7 2010/02/22 08:51:18 iva2k Exp $
 
 iTweak Upload Module
 --------------------
